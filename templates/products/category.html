@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Categories - Online Shop</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* Header */
+        header {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        /* Main Container */
+        .container {
+            padding: 20px;
+        }
+
+        /* Category List */
+        .category-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .category-list li {
+            background-color: #f8f9fa;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .category-list li a {
+            text-decoration: none;
+            color: #007bff;
+            font-size: 1.2rem;
+        }
+
+        .category-list li:hover {
+            background-color: #e2e6ea;
+        }
+
+        /* Footer */
+        footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Online Shop Categories</h1>
+    </header>
+
+    <div class="container">
+        <h2>Categories</h2>
+        <ul class="category-list">
+            {% for category in categories %}
+                <li>
+                    <a href="{% url 'product-list' category.pk %}">{{ category.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Online Shop. All rights reserved.</p>
+    </footer>
+</body>
+</html>

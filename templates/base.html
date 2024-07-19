@@ -1,0 +1,183 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Online Shop{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Custom styles */
+        .bg-image {
+            background-image: url('https://source.unsplash.com/random/1600x900?store');
+            filter: blur(2px);
+            -webkit-filter: blur(2px);
+            height: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: -1;
+        }
+
+        header {
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 999;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 15px;
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
+
+        main {
+            width: 100%;
+            height: auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            bottom: 0;
+        }
+
+        .checkout-button:hover {
+            background-color: transparent !important;
+            border-color: white !important;
+        }
+
+        .centered-text {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: white;
+            font-weight: bold;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            width: 80%;
+            padding: 20px;
+            text-align: center;
+            border-radius: 20px;
+            backdrop-filter: blur(5px);
+        }
+
+        .centered-text h1 {
+            font-size: 3rem;
+        }
+
+        .centered-text p {
+            font-size: 1.5rem;
+        }
+
+        .btn {
+            background-color: #007bff;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-image"></div>
+
+    <header>
+        <h1>Online Shop</h1><br><br>
+        <nav>
+            <ul>
+                <li><a href="{% url 'landing-page' %}" class="navbar-brand">Home</a></li>
+                <li><a href="{% url 'register' %}">Register</a></li>
+                {% if request.user.is_authenticated %}
+                    <li><a href="{% url 'category-list' %}">Go To Shop</a></li>
+                    <li><a href="{% url 'cart-detail' %}">My Cart</a></li>
+                    <li><a href="{% url 'profile' request.user.pk %}">Profile</a></li>
+                    <li><a href="{% url 'profile-update' request.user.pk %}">Profile Update</a></li>
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                    {% if order %}
+                        <li><a href="{% url 'order-detail' order.pk %}">Order Detail</a></li>
+                    {% endif %}
+                    <!-- Add Chat Room Button -->
+                    <li><a href="{% url 'chat-room' 'general' %}">Chat Room</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Online Shop. All rights reserved.</p>
+        <a style="font-size: 32px; color: red; margin-left: 15px" href="https://www.instagram.com" target="_blank">
+            <i class="fab fa-instagram"></i>
+        </a>
+        <a style="font-size: 32px; color: #24A1DE; margin-left: 15px" href="https://www.telegram.com" target="_blank">
+            <i class="fab fa-telegram"></i>
+        </a>
+        <a style="font-size: 32px; color: white; margin-left: 15px" href="https://www.tiktok.com" target="_blank">
+            <i class="fab fa-tiktok"></i>
+        </a>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
